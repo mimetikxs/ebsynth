@@ -38,11 +38,11 @@ void ebsynthRun(int    ebsynthBackend,
                 void*  outputImageData,
 		void*  outputErrorData)
 {
-  void (*backendDispatch)(int,int,int,int,void*,void*,int,int,void*,void*,float*,float*,float,int,int,int,int*,int*,int*,int,void*,void*, void*) = ebsynthRunCpu;
+  void (*backendDispatch)(int,int,int,int,void*,void*,int,int,void*,void*,float*,float*,float,int,int,int,int*,int*,int*,int,void*,void*, void*) = 0;
   
-  //if      (ebsynthBackend==EBSYNTH_BACKEND_CPU ) { backendDispatch = ebsynthRunCpu;  }
-  //else if (ebsynthBackend==EBSYNTH_BACKEND_CUDA) { backendDispatch = ebsynthRunCuda; }
-  //else if (ebsynthBackend==EBSYNTH_BACKEND_AUTO) { backendDispatch = ebsynthBackendAvailableCuda() ? ebsynthRunCuda : ebsynthRunCpu; }
+  if      (ebsynthBackend==EBSYNTH_BACKEND_CPU ) { backendDispatch = ebsynthRunCpu;  }
+  else if (ebsynthBackend==EBSYNTH_BACKEND_CUDA) { backendDispatch = ebsynthRunCuda; }
+  else if (ebsynthBackend==EBSYNTH_BACKEND_AUTO) { backendDispatch = ebsynthBackendAvailableCuda() ? ebsynthRunCuda : ebsynthRunCpu; }
   
   if (backendDispatch!=0)
   {
